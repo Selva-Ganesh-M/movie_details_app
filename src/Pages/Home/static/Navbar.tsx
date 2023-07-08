@@ -32,7 +32,7 @@ const Navbar = (props: Props) => {
     // #endregion : side-effects
 
     return (
-        <div id="navbar" className={`w-full flex justify-between items-center px-5 py-3 border-2 shadow-sm sticky top-0 z-[1] ${scrollLoc > 0 ? `opacity-80` : `opacity-100`} bg-white`}>
+        <div id="navbar" className={`w-full flex justify-between items-center px-5 py-3 sticky top-0 z-[1] ${scrollLoc > 0 ? `opacity-90` : `opacity-100 shadow-md`} bg-white`}>
             <div id="logo" className="cursor-pointer w-[50px] h-[50px] flex gap-1 items-center font-extrabold font-serif text-lg">
                 <img src={Logo} alt="logo" />
                 <span>&Flix</span>
