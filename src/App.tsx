@@ -4,6 +4,7 @@ import Home from "./Pages/Home/switchable/Home";
 import Movies from "./Pages/Home/switchable/Movies";
 import Series from "./Pages/Home/switchable/Series";
 import Single from "./Pages/Home/switchable/Single";
+import "./App.css"
 
 type Props = Record<string, never>;
 
