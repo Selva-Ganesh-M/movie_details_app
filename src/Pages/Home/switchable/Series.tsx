@@ -9,7 +9,7 @@ const series = (props: Props) => {
         <div id='series'>
 
             {/* title */}
-            <div className='text-2xl font-extrabold px-10 py-4 sticky top-[74px] bg-white opacity-90'>
+            <div className='text-2xl font-extrabold px-10 py-4 sticky top-[106px] md:top-[74px] bg-white opacity-95'>
                 SERIES
             </div>
 
