@@ -34,7 +34,7 @@ const Navbar = (props: Props) => {
     return (
         <div id="navbar"
             className={
-                `w-full flex-col flex md:flex-row md:justify-between items-center px-5 py-3 sticky top-0 z-[1] 
+                `w-full flex-col flex md:flex-row md:justify-between items-center px-5 py-3 sticky top-0 z-[2] 
             ${scrollLoc > 0 ? `opacity-95` : `opacity-100 shadow-md`}
              bg-white`
             }>
