@@ -7,11 +7,11 @@ import store from './redux/store.ts'
 import { Provider } from 'react-redux'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Router>
-    <Routes>
-      <Provider store={store}>
+  <Provider store={store}>
+    <Router>
+      <Routes>
         <Route path="/*" element={<App />} />
-      </Provider>
-    </Routes>
-  </Router>
+      </Routes>
+    </Router>
+  </Provider>
 )

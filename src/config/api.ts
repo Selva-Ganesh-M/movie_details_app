@@ -1,8 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: `http://www.omdbapi.com/?apikey=[${import.meta.env.BASE_URL}]`,
-  withCredentials: true,
+  baseURL: `https://www.omdbapi.com`,
 });
+
+export type TResponse<T> = {
+  data: T;
+  status: number;
+  statusCode: string;
+};
 
 export default api;

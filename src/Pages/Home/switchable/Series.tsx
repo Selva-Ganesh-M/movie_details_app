@@ -1,10 +1,8 @@
-import React from 'react'
 import "./series.css"
-import MovieCard from '../../../components/cards/MovieCard'
 
 type Props = Record<string, never>
 
-const series = (props: Props) => {
+const Series = (props: Props) => {
     return (
         <div id='series'>
 
@@ -23,37 +21,10 @@ const series = (props: Props) => {
 
             {/* series-list */}
             <div id="series-list" className='w-[95%] m-auto'>
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
+                {/* <MovieCard /> */}
             </div>
         </div>
     )
 }
 
-export default series
+export default Series

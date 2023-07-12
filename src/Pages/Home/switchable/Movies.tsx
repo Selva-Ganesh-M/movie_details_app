@@ -1,11 +1,17 @@
-import React from 'react'
+import { useSelector } from "react-redux"
 import "./movies.css"
 import MovieCard from '../../../components/cards/MovieCard'
 import "./movies.css"
+import { IMovie } from '../../../redux/slices/movie/movie.er'
+import { selectAllMovies } from "../../../redux/slices/movie/movie.slice"
 
 type Props = Record<string, never>
 
 const Movies = (props: Props) => {
+    // #region : selectors
+    const movies = useSelector(selectAllMovies)
+
+    // #endregion : selectors
     return (
         <div id='movies'>
 
@@ -24,34 +30,11 @@ const Movies = (props: Props) => {
 
             {/* movies-list */}
             <div id="movies-list" className='w-[95%] m-auto'>
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
-                <MovieCard />
+                {
+                    movies.map((movie: IMovie, index: number) => {
+                        return <MovieCard movie={movie} key={index} />
+                    })
+                }
             </div>
         </div>
     )
