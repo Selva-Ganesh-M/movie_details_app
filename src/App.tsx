@@ -5,6 +5,7 @@ import Movies from "./Pages/Home/switchable/Movies";
 import Series from "./Pages/Home/switchable/Series";
 import Single from "./Pages/Home/switchable/Single";
 import "./App.css"
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 
 type Props = Record<string, never>;
 
@@ -23,6 +24,7 @@ const App = (props: Props) => {
             <Route path=":id" element={<Single />} />
           </Route>
         </Route>
+        <Route path="/pageNotFound" element={<PageNotFound />} />
         <Route path="/*" element={<Navigate to="/home" />} />
       </Routes>
     </div>

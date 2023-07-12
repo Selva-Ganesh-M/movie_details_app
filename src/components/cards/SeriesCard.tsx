@@ -8,7 +8,7 @@ type Props = {
 
 const SeriesCard = ({ series }: Props) => {
     return (
-        <div className='h-[300px] border-2 rounded-md overflow-clip shadow-lg cursor-pointer hover:translate-y-[-2px] transition-all duration-300 bg-slate-100'>
+        <div className='h-[300px] border-2 rounded-md overflow-clip shadow-lg cursor-pointer hover:translate-y-[-2px] transition-all duration-300 bg-gray-100'>
             {/* poster */}
             <div id="series-poster" className='w-full h-[80%] '>
                 <img src={series.Poster} onError={(e) => {
@@ -16,7 +16,7 @@ const SeriesCard = ({ series }: Props) => {
                 }} alt={`${series.Title} - poster`} className='h-full w-full object-center' />
             </div>
             <div className='flex flex-col p-2'>
-                <h1 className='font-extrabold text-ellipsis text-sm whitespace-nowrap overflow-hidden'>{series.Title}</h1>
+                <h1 className='font-extrabold text-ellipsis text-gray-600 text-sm whitespace-nowrap overflow-hidden'>{series.Title}</h1>
                 <p className='text-xs font-semibold text-gray-700'>{series.Year}</p>
             </div>
         </div>

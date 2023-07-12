@@ -4,6 +4,7 @@ import Logo from "../../../assets/images/logo.png"
 import { TStoreDispatch } from "../../../redux/store"
 import { getMovies } from "../../../redux/slices/movie/movie.er"
 import { getSeries } from "../../../redux/slices/series/series.er"
+import { useLocation, useNavigate } from "react-router-dom"
 
 
 type Props = Record<string, never>
@@ -12,6 +13,8 @@ const Navbar = (props: Props) => {
     // #region : grabbing
 
     const dispatch: TStoreDispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate()
 
     // #endregion : grabbing
 
@@ -42,11 +45,11 @@ const Navbar = (props: Props) => {
     // #region : search movies and series
 
     useEffect(() => {
-        if (src === "") {
+        if (src === "" && ["/home", "/home/"].includes(location.pathname)) {
             void dispatch(getMovies({ src: "fight", type: "movie" }))
             void dispatch(getSeries({ src: "fight", type: "series" }))
         }
-    }, [dispatch, src])
+    }, [dispatch, src, location])
 
     // #endregion : search movies and series
 
@@ -69,7 +72,7 @@ const Navbar = (props: Props) => {
              bg-white`
             }>
             {/* logo */}
-            <div id="logo" className="cursor-pointer w-fit h-[50px] flex gap-1 items-center font-extrabold font-serif text-lg">
+            <div id="logo" className="cursor-pointer w-fit h-[50px] flex gap-1 items-center font-extrabold font-serif text-lg" onClick={() => navigate("/home/")}>
                 <img src={Logo} alt="logo" className="w-[50px]" />
                 <div>&FLIX</div>
             </div>

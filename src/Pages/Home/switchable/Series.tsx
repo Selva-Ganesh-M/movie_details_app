@@ -12,10 +12,10 @@ const Series = (props: Props) => {
 
     // #endregion : selectors
     return (
-        <div id='series'>
+        <div id='series' className="mb-8">
 
             {/* title */}
-            <div className='px-10 py-4 sticky top-[106px] md:top-[74px] bg-white opacity-95 flex items-center gap-3'>
+            <div className='px-10 py-4 sticky top-[106px] md:top-[74px] bg-white opacity-95 flex items-center gap-3 z-[1]' >
                 <span className='text-2xl font-extrabold'>
                     SERIES
                 </span>

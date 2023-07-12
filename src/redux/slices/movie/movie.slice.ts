@@ -27,8 +27,6 @@ const movieSlice = createSlice({
         state.isFetching = true;
       })
       .addCase(getMovies.fulfilled, (state, action) => {
-        console.log(`fulfilled-${JSON.stringify(action.payload)}`);
-
         state.isFetching = false;
         state.movies = action.payload;
         state.isError = false;
