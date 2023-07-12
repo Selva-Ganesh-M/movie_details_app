@@ -1,5 +1,6 @@
 import { ISeries } from '../../redux/slices/series/series.slice'
 import AlternatePoster from "../../assets/images/alternate-poster.jpg"
+import { useNavigate } from 'react-router-dom'
 
 // type Props = Record<string, never>
 type Props = {
@@ -7,8 +8,12 @@ type Props = {
 }
 
 const SeriesCard = ({ series }: Props) => {
+    const navigate = useNavigate()
     return (
-        <div className='h-[300px] border-2 rounded-md overflow-clip shadow-lg cursor-pointer hover:translate-y-[-2px] transition-all duration-300 bg-gray-100'>
+        <div
+            className='h-[300px] border-2 rounded-md overflow-clip shadow-lg cursor-pointer hover:translate-y-[-2px] transition-all duration-300 bg-gray-100'
+            onClick={() => navigate(`/home/series/${series.imdbID}`)}
+        >
             {/* poster */}
             <div id="series-poster" className='w-full h-[80%] '>
                 <img src={series.Poster} onError={(e) => {

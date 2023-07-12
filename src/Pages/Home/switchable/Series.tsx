@@ -2,6 +2,7 @@ import SeriesCard from "../../../components/cards/SeriesCard"
 import { ISeries, selectAllSeries } from "../../../redux/slices/series/series.slice"
 import { useSelector } from "react-redux"
 import "./series.css"
+import { TRootState } from "../../../redux/store"
 
 type Props = Record<string, never>
 
@@ -9,6 +10,7 @@ const Series = (props: Props) => {
     // #region : selectors
 
     const series = useSelector(selectAllSeries)
+    const seriesState = useSelector((state: TRootState) => state.series)
 
     // #endregion : selectors
     return (
@@ -28,13 +30,18 @@ const Series = (props: Props) => {
             </div>
 
             {/* series-list */}
-            <div id="series-list" className='w-[95%] m-auto'>
-                {
-                    series.map((item: ISeries) => {
-                        return <SeriesCard series={item} key={item.imdbID} />
-                    })
-                }
-            </div>
+            {
+                seriesState.isFetching ? <div className="w-[95%] m-auto flex items-center justify-center">
+                    <div className="w-28 h-28 rounded-full border-dashed border-4 animate-spin border-red-600"></div>
+                </div> :
+                    <div id="series-list" className='w-[95%] m-auto'>
+                        {
+                            series.map((item: ISeries) => {
+                                return <SeriesCard series={item} key={item.imdbID} />
+                            })
+                        }
+                    </div>
+            }
         </div>
     )
 }

@@ -22,6 +22,7 @@ const Navbar = (props: Props) => {
 
     const [scrollLoc, setScrollLoc] = useState<number>(0)
     const [src, setSrc] = useState<string>("")
+    const [isHomePage, setIsHomePage] = useState<boolean>(true)
 
     // #endregion : simple-states
 
@@ -53,6 +54,18 @@ const Navbar = (props: Props) => {
 
     // #endregion : search movies and series
 
+    // #region : isHomePage
+
+    useEffect(() => {
+        if (["/home", "/home/"].includes(location.pathname)) {
+            setIsHomePage(true)
+        } else {
+            setIsHomePage(false)
+        }
+    }, [location])
+
+    // #endregion : isHomePage
+
     // #endregion : side-effects
 
     // #region : functions
@@ -72,23 +85,27 @@ const Navbar = (props: Props) => {
              bg-white`
             }>
             {/* logo */}
-            <div id="logo" className="cursor-pointer w-fit h-[50px] flex gap-1 items-center font-extrabold font-serif text-lg" onClick={() => navigate("/home/")}>
+            <div id="logo" className="cursor-pointer w-fit h-[50px] flex gap-1 items-center font-extrabold font-serif text-lg" onClick={() => { if (!["/home/", "/home"].includes(location.pathname)) { navigate("/home/") } }}>
                 <img src={Logo} alt="logo" className="w-[50px]" />
                 <div>&FLIX</div>
             </div>
 
             {/* search */}
-            <div id="search" className="h-8 flex items-stretch justify-center str w-[300px]">
-                <input
-                    type="text"
-                    id="input"
-                    className="border-2 px-4 py-2 rounded-l-full outline-none"
-                    placeholder="eg. Titanic"
-                    value={src}
-                    onChange={(e) => setSrc(e.target.value)}
-                />
-                <button id="search-button" className="text-white bg-red-600 rounded-r-full px-4" onClick={handleSearch}>Search</button>
-            </div>
+            {
+                isHomePage && (
+                    <div id="search" className="h-8 flex items-stretch justify-center str w-[300px]">
+                        <input
+                            type="text"
+                            id="input"
+                            className="border-2 px-4 py-2 rounded-l-full outline-none"
+                            placeholder="eg. Titanic"
+                            value={src}
+                            onChange={(e) => setSrc(e.target.value)}
+                        />
+                        <button id="search-button" className="text-white bg-red-600 rounded-r-full px-4" onClick={handleSearch}>Search</button>
+                    </div>
+                )
+            }
         </div>
     )
 }
