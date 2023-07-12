@@ -1,20 +1,30 @@
 import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import Logo from "../../../assets/images/logo.png"
+import { TStoreDispatch } from "../../../redux/store"
+import { getMovies } from "../../../redux/slices/movie/movie.er"
+import { getSeries } from "../../../redux/slices/series/series.er"
 
 
 type Props = Record<string, never>
 
 const Navbar = (props: Props) => {
+    // #region : grabbing
+
+    const dispatch: TStoreDispatch = useDispatch();
+
+    // #endregion : grabbing
 
     // #region : simple-states
 
     const [scrollLoc, setScrollLoc] = useState<number>(0)
+    const [src, setSrc] = useState<string>("")
 
     // #endregion : simple-states
 
     // #region : side-effects
 
-    // #refirst: top of the page checker
+    // #region : top of the page checker
 
     useEffect(() => {
         const func = () => {
@@ -29,7 +39,27 @@ const Navbar = (props: Props) => {
 
     // #endregion : top of the page checker
 
+    // #region : search movies and series
+
+    useEffect(() => {
+        if (src === "") {
+            void dispatch(getMovies({ src: "fight", type: "movie" }))
+            void dispatch(getSeries({ src: "fight", type: "series" }))
+        }
+    }, [dispatch, src])
+
+    // #endregion : search movies and series
+
     // #endregion : side-effects
+
+    // #region : functions
+
+    const handleSearch = () => {
+        void dispatch(getMovies({ src, type: "movie" }))
+        void dispatch(getSeries({ src, type: "series" }))
+    }
+
+    // #endregion : functions
 
     return (
         <div id="navbar"
@@ -46,8 +76,15 @@ const Navbar = (props: Props) => {
 
             {/* search */}
             <div id="search" className="h-8 flex items-stretch justify-center str w-[300px]">
-                <input type="text" id="input" className="border-2 px-4 py-2 rounded-l-full outline-none" placeholder="eg. Titanic" />
-                <button id="search-button" className="text-white bg-red-600 rounded-r-full px-4">Search</button>
+                <input
+                    type="text"
+                    id="input"
+                    className="border-2 px-4 py-2 rounded-l-full outline-none"
+                    placeholder="eg. Titanic"
+                    value={src}
+                    onChange={(e) => setSrc(e.target.value)}
+                />
+                <button id="search-button" className="text-white bg-red-600 rounded-r-full px-4" onClick={handleSearch}>Search</button>
             </div>
         </div>
     )

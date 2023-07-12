@@ -9,11 +9,6 @@ import { getSeries } from '../../../redux/slices/series/series.er'
 type Props = Record<string, never>
 
 const Home = (props: Props) => {
-    const dispatch: TStoreDispatch = useDispatch()
-    useEffect(() => {
-        void dispatch(getMovies({ src: "fight", type: "movie" }))
-        void dispatch(getSeries({ src: "fight", type: "series" }))
-    }, [dispatch])
     return (
         <div className='flex flex-col gap-5'>
             <Movies />
