@@ -3,12 +3,11 @@ import { getSeries } from "./series.er";
 import { TRootState } from "../../store";
 
 export interface ISeries {
-  Search: Array<{
-    Title: string;
-    isFetching: false;
-    isError: false;
-    error: "";
-  }>;
+  Title: string;
+  Year: number;
+  imdbID: string;
+  Type: string;
+  Poster: string;
 }
 
 interface ISeriesInitialState {

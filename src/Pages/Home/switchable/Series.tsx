@@ -1,8 +1,16 @@
+import SeriesCard from "../../../components/cards/SeriesCard"
+import { ISeries, selectAllSeries } from "../../../redux/slices/series/series.slice"
+import { useSelector } from "react-redux"
 import "./series.css"
 
 type Props = Record<string, never>
 
 const Series = (props: Props) => {
+    // #region : selectors
+
+    const series = useSelector(selectAllSeries)
+
+    // #endregion : selectors
     return (
         <div id='series'>
 
@@ -21,7 +29,11 @@ const Series = (props: Props) => {
 
             {/* series-list */}
             <div id="series-list" className='w-[95%] m-auto'>
-                {/* <MovieCard /> */}
+                {
+                    series.map((item: ISeries) => {
+                        return <SeriesCard series={item} key={item.imdbID} />
+                    })
+                }
             </div>
         </div>
     )

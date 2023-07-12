@@ -1,5 +1,3 @@
-import React from 'react'
-import sample_poster from "../../assets/images/sample-poster.jpg"
 import { IMovie } from '../../redux/slices/movie/movie.er'
 
 // type Props = Record<string, never>

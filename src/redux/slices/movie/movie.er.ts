@@ -5,6 +5,7 @@ import { apiKey } from "../../../config/envConfig";
 
 interface IMovieSrcData {
   src: string;
+  type: string;
 }
 
 export interface IMovie {
@@ -31,7 +32,7 @@ export const getMovies = createAsyncThunk(
   async (data: IMovieSrcData, thunkApi) => {
     try {
       const res: TResponse<IResponse | IResponseError> = await api.get(
-        `?apikey=${apiKey}&s=${data.src}`
+        `?apikey=${apiKey}&s=${data.src}&type=${data.type}`
       );
       switch (res.data.Response) {
         case "True":

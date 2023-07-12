@@ -17,10 +17,10 @@ interface ISeriesFailedResponse {
 
 export const getSeries = createAsyncThunk(
   "series/getSeries",
-  async (data: { src: string }, thunkApi) => {
+  async (data: { src: string; type: string }, thunkApi) => {
     try {
       const res: TResponse<ISeriesFailedResponse | ISeriesSuccessResponse> =
-        await api.get(`/?apiKey=${apiKey}&s=${data.src}&type=series`);
+        await api.get(`/?apiKey=${apiKey}&s=${data.src}&type=${data.type}`);
 
       switch (res.data.Response) {
         case "True":
