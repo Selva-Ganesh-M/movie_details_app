@@ -8,6 +8,7 @@ import { selectAllMovies } from "../../../redux/slices/movie/movie.slice"
 import { TRootState, TStoreDispatch } from "../../../redux/store"
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import useSrcContext from "../../../customHooks/useSrcContext"
+import LoadingCards from "../../../components/cards/LoadingCards"
 
 type srcOptions = {
     src: string,
@@ -92,18 +93,17 @@ const Movies = ({ type }: Props) => {
             </div>
 
             {/* movies-list */}
-            {moviesState.isFetching ?
-                <div className="w-[95%] m-auto flex items-center justify-center">
-                    <div className="w-28 h-28 rounded-full border-dashed border-4 animate-spin duration-500 border-red-600"></div>
-                </div> :
-                <div id="movies-list" className='w-[95%] m-auto'>
-                    {
-                        movies.map((movie: IMovie, index: number) => {
-                            return <MovieCard movie={movie} key={index} />
-                        })
-                    }
-                </div>
-            }
+            <div id="movies-list" className='w-[95%] m-auto'>
+                {
+                    moviesState.isFetching ? <>{Array(14).fill(0).map(() => <LoadingCards />)}</> : (<>
+                        {
+                            movies.map((movie: IMovie, index: number) => {
+                                return <MovieCard movie={movie} key={index} />
+                            })
+                        }
+                    </>)
+                }
+            </div>
         </div>
     )
 }
