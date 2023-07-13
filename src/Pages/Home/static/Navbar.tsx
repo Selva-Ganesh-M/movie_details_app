@@ -4,7 +4,7 @@ import Logo from "../../../assets/images/logo.png"
 import { TStoreDispatch } from "../../../redux/store"
 import { getMovies } from "../../../redux/slices/movie/movie.er"
 import { getSeries } from "../../../redux/slices/series/series.er"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 
 type Props = Record<string, never>
@@ -15,6 +15,7 @@ const Navbar = (props: Props) => {
     const dispatch: TStoreDispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate()
+    const params = useParams();
 
     // #endregion : grabbing
 
@@ -46,8 +47,8 @@ const Navbar = (props: Props) => {
     // #region : search movies and series
 
     useEffect(() => {
-        if (src === "" && ["/home", "/home/"].includes(location.pathname)) {
-            void dispatch(getMovies({ src: "fight", type: "movie" }))
+        if (src === "" && ["/home", "/home/", "/home/movies/", "/home/series/"].includes(location.pathname.split("?")[0])) {
+            // void dispatch(getMovies({ src: "fight", type: "movie" }))
             void dispatch(getSeries({ src: "fight", type: "series" }))
         }
     }, [dispatch, src, location])
@@ -71,7 +72,7 @@ const Navbar = (props: Props) => {
     // #region : functions
 
     const handleSearch = () => {
-        void dispatch(getMovies({ src, type: "movie" }))
+        // void dispatch(getMovies({ src, type: "movie" }))
         void dispatch(getSeries({ src, type: "series" }))
     }
 

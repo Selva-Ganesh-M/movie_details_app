@@ -6,6 +6,7 @@ import { apiKey } from "../../../config/envConfig";
 interface IMovieSrcData {
   src: string;
   type: string;
+  pageNo: number;
 }
 
 export interface IMovie {
@@ -32,11 +33,14 @@ export const getMovies = createAsyncThunk(
   async (data: IMovieSrcData, thunkApi) => {
     try {
       const res: TResponse<IResponse | IResponseError> = await api.get(
-        `?apikey=${apiKey}&s=${data.src}&type=${data.type}`
+        `?apikey=${apiKey}&s=${data.src}&type=${data.type}&page=${data.pageNo}`
       );
       switch (res.data.Response) {
         case "True":
-          return thunkApi.fulfillWithValue(res.data.Search);
+          return thunkApi.fulfillWithValue({
+            data: res.data.Search,
+            totalResults: res.data.totalResults,
+          });
         case "False":
           throw new Error(res.data.Error);
       }

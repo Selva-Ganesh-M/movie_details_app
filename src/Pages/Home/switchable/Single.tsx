@@ -96,12 +96,14 @@ const Single = (props: Props) => {
                         {/* cast and crew section */}
                         {/* <table className="mt-3 flex flex-col gap-2"> */}
                         <table className="mt-5">
-                            <TitleAndValue title={"genre"} value={movie.Genre} />
-                            <TitleAndValue title={"directors"} value={movie.Director} />
-                            <TitleAndValue title={"Writer"} value={movie.Writer} />
-                            <TitleAndValue title={"Actors"} value={movie.Actors} />
-                            <TitleAndValue title={"Awards"} value={movie.Awards} />
-                            <TitleAndValue title={"Plot"} value={movie.Plot} className={`align-top`} />
+                            <tbody>
+                                <TitleAndValue title={"genre"} value={movie.Genre} />
+                                <TitleAndValue title={"directors"} value={movie.Director} />
+                                <TitleAndValue title={"Writer"} value={movie.Writer} />
+                                <TitleAndValue title={"Actors"} value={movie.Actors} />
+                                <TitleAndValue title={"Awards"} value={movie.Awards} />
+                                <TitleAndValue title={"Plot"} value={movie.Plot} className={`align-top`} />
+                            </tbody>
                         </table>
                     </div>
 

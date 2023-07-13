@@ -1,32 +1,99 @@
-import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import "./movies.css"
 import MovieCard from '../../../components/cards/MovieCard'
 import "./movies.css"
-import { IMovie } from '../../../redux/slices/movie/movie.er'
+import { IMovie, getMovies } from '../../../redux/slices/movie/movie.er'
 import { selectAllMovies } from "../../../redux/slices/movie/movie.slice"
-import { TRootState } from "../../../redux/store"
+import { TRootState, TStoreDispatch } from "../../../redux/store"
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"
+import useSrcContext from "../../../customHooks/useSrcContext"
 
-type Props = Record<string, never>
+type srcOptions = {
+    src: string,
+    type: string,
+    pageNo: number
+}
 
-const Movies = (props: Props) => {
+type Props = {
+    type: string
+}
+
+const Movies = ({ type }: Props) => {
+    // #region : grabbing
+
+    const [src, setSrc] = useSrcContext()
+    const dispatch: TStoreDispatch = useDispatch()
+
+    // #endregion : grabbing
+
     // #region : selectors
     const movies = useSelector(selectAllMovies)
     const moviesState = useSelector((state: TRootState) => state.movies)
-
     // #endregion : selectors
+
+    // #region : simple-states
+
+    const [page, setPage] = useState<{ pageNo: number, maxPages: number }>({ pageNo: 1, maxPages: 10 });
+
+    // #endregion : simple-states
+
+    // #region : side-effects
+
+    useEffect(() => {
+        const options = {
+            src,
+            type: "movie",
+            pageNo: page.pageNo
+        } as srcOptions;
+
+        const fetchMovies = async (options: srcOptions) => {
+            const res = await dispatch(getMovies(options))
+        }
+
+        fetchMovies(options).then(() => {
+            //
+        }).catch(() => {
+            //
+        })
+    }, [page, dispatch, src])
+
+    // #endregion : side-effects
+
+    // #region : functions
+    const handlePageChange = (action: string) => {
+        switch (action) {
+            case "+":
+                if (page.pageNo < page.maxPages) {
+                    setPage(prev => {
+                        return { ...prev, pageNo: prev.pageNo + 1 }
+                    })
+                }
+                break;
+            case "-":
+                if (page.pageNo > 1) {
+                    setPage(prev => {
+                        return { ...prev, pageNo: prev.pageNo - 1 }
+                    })
+                }
+                break;
+        }
+
+    }
+
+    // #endregion : functions   
     return (
         <div id='movies'>
 
             {/* title */}
-            <div className='px-10 py-4 sticky top-[106px] md:top-[74px] bg-white opacity-95 flex items-center gap-3 z-[1]'>
+            <div className='px-10 py-4 sticky top-[106px] md:top-[74px] bg-white opacity-95 flex items-center gap-3 z-[1] justify-between'>
                 <span className='text-2xl font-extrabold'>
                     MOVIES
                 </span>
-                <div className='border-red-300 border-2 px-3 py-1 rounded-full flex items-center gap-2 cursor-pointer'>
-                    <span>See More</span>
-                    <span>
-                        {`>`}
-                    </span>
+                <div className='flex items-center gap-2'>
+                    <button className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer" onClick={() => handlePageChange("-")}>{`<<  Prev`}</button>
+                    <div>Page: {page.pageNo}</div>
+                    <button className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer" onClick={() => handlePageChange("+")}>{`Next  >>`}</button>
                 </div>
             </div>
 

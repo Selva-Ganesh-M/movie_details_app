@@ -5,6 +5,7 @@ import { IMovie } from "../movie/movie.er";
 
 type TMovieSliceInitialState = {
   movies: Array<IMovie>;
+  totalResults: number;
   isFetching: boolean;
   isError: boolean;
   error: string;
@@ -12,6 +13,7 @@ type TMovieSliceInitialState = {
 
 const initialState: TMovieSliceInitialState = {
   movies: [],
+  totalResults: 0,
   isFetching: false,
   isError: false,
   error: "",
@@ -28,7 +30,8 @@ const movieSlice = createSlice({
       })
       .addCase(getMovies.fulfilled, (state, action) => {
         state.isFetching = false;
-        state.movies = action.payload;
+        state.movies = action.payload.data;
+        state.totalResults = action.payload.totalResults;
         state.isError = false;
         state.error = "";
       })

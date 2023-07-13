@@ -16,7 +16,7 @@ const App = (props: Props) => {
         <Route path="/home" element={<BaseLayout />}>
           <Route index element={<Home />} />
           <Route path="movies">
-            <Route index element={<Movies />} />
+            <Route index element={<Movies type="list" />} />
             <Route path=":id" element={<Single />} />
           </Route>
           <Route path="series">
