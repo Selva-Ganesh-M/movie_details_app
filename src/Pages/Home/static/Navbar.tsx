@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Logo from "../../../assets/images/logo.png"
-import { TStoreDispatch } from "../../../redux/store"
+import { TRootState, TStoreDispatch } from "../../../redux/store"
 import { getMovies } from "../../../redux/slices/movie/movie.er"
 import { getSeries } from "../../../redux/slices/series/series.er"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
+import useSrcContext from "../../../customHooks/useSrcContext"
 
 
 type Props = Record<string, never>
@@ -14,15 +15,20 @@ const Navbar = (props: Props) => {
 
     const dispatch: TStoreDispatch = useDispatch();
     const location = useLocation();
-    const navigate = useNavigate()
-    const params = useParams();
+    const navigate = useNavigate();
+
+    const { page, setPage, setSrc, src } = useSrcContext()
 
     // #endregion : grabbing
+
+    // #region : selectors
+    const movieState = useSelector((state: TRootState) => state.movies)
+
+    // #endregion : selectors
 
     // #region : simple-states
 
     const [scrollLoc, setScrollLoc] = useState<number>(0)
-    const [src, setSrc] = useState<string>("")
     const [isHomePage, setIsHomePage] = useState<boolean>(true)
 
     // #endregion : simple-states
@@ -72,7 +78,19 @@ const Navbar = (props: Props) => {
     // #region : functions
 
     const handleSearch = () => {
-        // void dispatch(getMovies({ src, type: "movie" }))
+        setPage((prev) => {
+            return {
+                maxPages: 1,
+                pageNo: 1
+            }
+        })
+        dispatch(getMovies({ src, type: "movie", pageNo: 1 })).then((data) => {
+            setPage((prev) => {
+                return { ...prev, maxPages: movieState.totalResults / 10 }
+            })
+        }).catch(() => {
+            //
+        })
         void dispatch(getSeries({ src, type: "series" }))
     }
 

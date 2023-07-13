@@ -22,7 +22,7 @@ type Props = {
 const Movies = ({ type }: Props) => {
     // #region : grabbing
 
-    const [src, setSrc] = useSrcContext()
+    const { src, setSrc, page, setPage } = useSrcContext()
     const dispatch: TStoreDispatch = useDispatch()
 
     // #endregion : grabbing
@@ -31,12 +31,6 @@ const Movies = ({ type }: Props) => {
     const movies = useSelector(selectAllMovies)
     const moviesState = useSelector((state: TRootState) => state.movies)
     // #endregion : selectors
-
-    // #region : simple-states
-
-    const [page, setPage] = useState<{ pageNo: number, maxPages: number }>({ pageNo: 1, maxPages: 10 });
-
-    // #endregion : simple-states
 
     // #region : side-effects
 
@@ -56,7 +50,7 @@ const Movies = ({ type }: Props) => {
         }).catch(() => {
             //
         })
-    }, [page, dispatch, src])
+    }, [page, dispatch])
 
     // #endregion : side-effects
 
@@ -86,7 +80,7 @@ const Movies = ({ type }: Props) => {
         <div id='movies'>
 
             {/* title */}
-            <div className='px-10 py-4 sticky top-[106px] md:top-[74px] bg-white opacity-95 flex items-center gap-3 z-[1] justify-between'>
+            <div className='px-10 py-4 sticky top-[106px] md:top-[74px] bg-white opacity-95 flex flex-col md:flex-row md:gap-2 mb-4 items-center gap-3 z-[1] justify-between'>
                 <span className='text-2xl font-extrabold'>
                     MOVIES
                 </span>
