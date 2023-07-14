@@ -90,17 +90,20 @@ const Movies = ({ type }: Props) => {
                 <span className='text-2xl font-extrabold'>
                     MOVIES
                 </span>
-                <div className='flex items-center gap-2'>
-                    <button
-                        className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400" onClick={() => handlePageChange("-")}
-                        disabled={(page.moviePageNo <= 1)}
-                    >{`<<  Prev`}</button>
-                    <div>Page: {moviesState.isError ? 0 : page.moviePageNo}</div>
-                    <button
-                        className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400"
-                        onClick={() => handlePageChange("+")}
-                        disabled={(page.moviePageNo >= page.movieMaxPages)}
-                    >{`Next  >>`}</button>
+                <div className="flex flex-col gap-1 items-center font-semibold text-gray-700">
+                    <div className='flex items-center gap-2'>
+                        <button
+                            className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400" onClick={() => handlePageChange("-")}
+                            disabled={(page.moviePageNo <= 1)}
+                        >{`<<  Prev`}</button>
+                        <div>Page: {moviesState.isError ? 0 : page.moviePageNo}</div>
+                        <button
+                            className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400"
+                            onClick={() => handlePageChange("+")}
+                            disabled={(page.moviePageNo >= page.movieMaxPages)}
+                        >{`Next  >>`}</button>
+                    </div>
+                    <div className="text-xs">{`(${moviesState.totalResults} Results)`}</div>
                 </div>
             </div>
 

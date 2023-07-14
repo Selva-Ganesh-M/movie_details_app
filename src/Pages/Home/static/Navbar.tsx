@@ -23,6 +23,7 @@ const Navbar = (props: Props) => {
 
     // #region : selectors
     const movieState = useSelector((state: TRootState) => state.movies)
+    const seriesState = useSelector((state: TRootState) => state.series)
 
     // #endregion : selectors
 
@@ -49,17 +50,6 @@ const Navbar = (props: Props) => {
     }, [])
 
     // #endregion : top of the page checker
-
-    // #region : search movies and series
-
-    // useEffect(() => {
-    //     if (src === "" && ["/home", "/home/", "/home/movies/", "/home/series/"].includes(location.pathname.split("?")[0])) {
-    //         // void dispatch(getMovies({ src: "fight", type: "movie" }))
-    //         void dispatch(getSeries({ src: "fight", type: "series", pageNo:  }))
-    //     }
-    // }, [dispatch, src, location])
-
-    // #endregion : search movies and series
 
     // #region : isHomePage
 
@@ -88,12 +78,18 @@ const Navbar = (props: Props) => {
         })
         dispatch(getMovies({ src, type: "movie", pageNo: 1 })).then((data) => {
             setPage((prev) => {
-                return { ...prev, maxPages: movieState.totalResults / 10 }
+                return { ...prev, movieMaxPages: movieState.totalResults / 10 }
             })
         }).catch((err) => {
             //
         })
-        void dispatch(getSeries({ src, type: "series", pageNo: 1 }))
+        void dispatch(getSeries({ src, type: "series", pageNo: 1 })).then((data) => {
+            setPage((prev) => {
+                return { ...prev, seriesMaxPages: seriesState.totalResults / 10 }
+            })
+        }).catch(() => {
+            //
+        })
     }
 
     // #endregion : functions
