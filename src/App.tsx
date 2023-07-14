@@ -30,6 +30,7 @@ const App = (_props: Props) => {
             <Route path=":id" element={<SinglePage />} />
           </Route>
         </Route>
+        <Route path="/" element={<Navigate to={"/home/"} />} />
         <Route path="/pageNotFound" element={<PageNotFound />} />
         <Route path="/*" element={<Navigate to="/pageNotFound" />} />
       </Routes>
