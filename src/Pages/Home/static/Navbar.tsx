@@ -4,20 +4,20 @@ import Logo from "../../../assets/images/logo.png"
 import { TRootState, TStoreDispatch } from "../../../redux/store"
 import { getMovies } from "../../../redux/slices/movie/movie.er"
 import { getSeries } from "../../../redux/slices/series/series.er"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import useSrcContext from "../../../customHooks/useSrcContext"
 
 
 type Props = Record<string, never>
 
-const Navbar = (props: Props) => {
+const Navbar = (_props: Props) => {
     // #region : grabbing
 
     const dispatch: TStoreDispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
 
-    const { page, setPage, setSrc, src } = useSrcContext()
+    const { page: _page, setPage, setSrc, src } = useSrcContext()
 
     // #endregion : grabbing
 
@@ -68,7 +68,7 @@ const Navbar = (props: Props) => {
     // #region : functions
 
     const handleSearch = () => {
-        setPage((prev) => {
+        setPage(() => {
             return {
                 moviePageNo: 1,
                 movieMaxPages: 1,
@@ -76,14 +76,14 @@ const Navbar = (props: Props) => {
                 seriesPageNo: 1
             }
         })
-        dispatch(getMovies({ src, type: "movie", pageNo: 1 })).then((data) => {
+        dispatch(getMovies({ src, type: "movie", pageNo: 1 })).then(() => {
             setPage((prev) => {
                 return { ...prev, movieMaxPages: movieState.totalResults / 10 }
             })
-        }).catch((err) => {
+        }).catch(() => {
             //
         })
-        void dispatch(getSeries({ src, type: "series", pageNo: 1 })).then((data) => {
+        void dispatch(getSeries({ src, type: "series", pageNo: 1 })).then(() => {
             setPage((prev) => {
                 return { ...prev, seriesMaxPages: seriesState.totalResults / 10 }
             })

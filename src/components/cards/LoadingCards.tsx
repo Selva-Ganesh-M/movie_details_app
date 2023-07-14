@@ -1,4 +1,3 @@
-import samplePoster from "../../assets/images/sample-poster.jpg"
 
 const LoadingCards = () => {
     return (

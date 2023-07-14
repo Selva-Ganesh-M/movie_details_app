@@ -1,5 +1,4 @@
 import { apiKey } from "./../../../config/envConfig";
-import { ISeries } from "./series.slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import ensureError from "../../../utils/ensureError";
 import api, { TResponse } from "../../../config/api";

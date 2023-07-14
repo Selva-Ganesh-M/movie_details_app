@@ -19,10 +19,10 @@ type Props = {
     type: string
 }
 
-const Movies = ({ type }: Props) => {
+const Movies = ({ type: _type }: Props) => {
     // #region : grabbing
 
-    const { src, setSrc, page, setPage } = useSrcContext()
+    const { src, setSrc: _setSrc, page, setPage } = useSrcContext()
     const dispatch: TStoreDispatch = useDispatch()
 
     // #endregion : grabbing

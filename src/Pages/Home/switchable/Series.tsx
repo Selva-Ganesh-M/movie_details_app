@@ -12,10 +12,10 @@ import "./series.css"
 
 type Props = Record<string, never>
 
-const Series = (props: Props) => {
+const Series = (_props: Props) => {
     // #region : grabbing
 
-    const { src, setSrc, page, setPage } = useSrcContext()
+    const { src, setSrc: _setSrc, page, setPage } = useSrcContext()
     const dispatch: TStoreDispatch = useDispatch()
 
     // #endregion : grabbing

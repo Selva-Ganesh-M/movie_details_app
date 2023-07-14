@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { apiKey } from "../../../config/envConfig";
 import imdbIcon from "../../../assets/images/imdb.png"
 import api, { TResponse } from "../../../config/api";
@@ -33,7 +33,6 @@ interface IFailureSingleMovie {
 }
 
 const Single = (props: Props) => {
-    const location = useLocation()
     const params = useParams()
     const navigate = useNavigate()
     const [movie, setMovie] = useState<ISuccessSingleMovie | undefined>()

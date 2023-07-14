@@ -3,7 +3,7 @@ import notFoundPage from "../../assets/images/pageNotFound.jpg"
 
 type Props = Record<string, never>
 
-const PageNotFound = (props: Props) => {
+const PageNotFound = (_props: Props) => {
     const navigate = useNavigate();
     return (
         <div className="w-full h-[100vh] flex flex-col justify-center items-center">

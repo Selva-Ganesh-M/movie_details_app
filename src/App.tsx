@@ -11,7 +11,7 @@ import SingleLoadingPage from "./Pages/Loading/SingleLoadingPage";
 
 type Props = Record<string, never>;
 
-const App = (props: Props) => {
+const App = (_props: Props) => {
   return (
     <div className="app">
       <Routes>
