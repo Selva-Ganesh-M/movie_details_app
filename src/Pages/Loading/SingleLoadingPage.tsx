@@ -4,8 +4,8 @@ const SingleLoadingPage = () => {
     console.log("loading page ran");
 
     return (
-        <div id="single-movie" className="p-8 flex gap-4 w-[75%] m-auto animate-pulse">
-            <div className="w-[300px] h-[450px]">
+        <div id="single-movie" className="p-8 flex gap-4 w-[95%] md:w-[75%] m-auto animate-pulse flex-col lg:flex-row">
+            <div className="w-[250px] h-[380px] md:w-[300px] md:h-[450px] m-auto">
                 <div className={`w-full h-full object-cover bg-gray-300 `}></div>
             </div>
 
@@ -48,15 +48,15 @@ const SingleLoadingPage = () => {
                     </div>
                     <div className="flex gap-4">
                         <div className="w-24 bg-gray-300 h-8 rounded-md"></div>
-                        <div className="w-[350px] bg-gray-300 h-8 rounded-md"></div>
+                        <div className="w-[300px] bg-gray-300 h-8 rounded-md"></div>
                     </div>
                     <div className="flex gap-4">
                         <div className="w-24 bg-gray-300 h-8 rounded-md"></div>
-                        <div className="w-[390px] bg-gray-300 h-8 rounded-md"></div>
+                        <div className="w-[100px] bg-gray-300 h-8 rounded-md"></div>
                     </div>
                     <div className="flex gap-4">
-                        <div className="w-24 bg-gray-300 h-8 rounded-md"></div>
-                        <div className="w-[600px] bg-gray-300 h-[200px] rounded-md"></div>
+                        <div className="w-32 bg-gray-300 h-8 rounded-md"></div>
+                        <div className="w-[100%] bg-gray-300 h-[200px] rounded-md"></div>
                     </div>
                 </div>
             </div>

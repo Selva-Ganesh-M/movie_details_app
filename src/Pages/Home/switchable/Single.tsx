@@ -62,7 +62,7 @@ const Single = (props: Props) => {
     return (
         <>{
             movie ?
-                <div id="single-movie" className="p-8 flex gap-4 w-[95%] md:w-[75%] m-auto flex-col items-center lg:flex-row lg:mt-8">
+                <div id="single-movie" className="p-8 flex gap-4 w-[95%] md:w-[75%] m-auto flex-col items-center lg:flex-row lg:mt-8 lg:items-start">
                     <div className="w-[250px] h-[380px] md:w-[300px] md:h-[450px]">
                         <img src={movie?.Poster} alt="" className={`w-full h-full object-cover`} />
                     </div>
@@ -73,7 +73,7 @@ const Single = (props: Props) => {
                         <div className="flex gap-1 justify-between items-start md:items-center">
                             <div className="flex flex-col gap-2 m-auto md:m-0">
                                 <div className="flex gap-1 flex-col">
-                                    <div className="font-bold text-xl text-red-600 text-ellipsis whitespace-nowrap overflow-hidden">{movie?.Title}</div>
+                                    <div className="font-bold text-xl lg:text-3xl text-red-600 text-ellipsis whitespace-nowrap overflow-hidden">{movie?.Title}</div>
                                     <div className="flex items-center gap-2">
                                         <img src={imdbIcon} alt="" />
                                         <div className="text-[14px] font-semibold text-gray-500">{movie.imdbRating}</div>
