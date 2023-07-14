@@ -123,12 +123,12 @@ const Navbar = (props: Props) => {
                             value={src}
                             onChange={(e) => setSrc(e.target.value)}
                             onKeyDown={(e) => {
-                                if (e.key == "Enter") {
+                                if (e.key == "Enter" && src) {
                                     handleSearch()
                                 }
                             }}
                         />
-                        <button id="search-button" className="text-white bg-red-600 rounded-r-full px-4" onClick={handleSearch}>Search</button>
+                        <button id="search-button" className="text-white bg-red-600 rounded-r-full px-4 disabled:bg-gray-400" onClick={handleSearch} disabled={!src ? true : false}>Search</button>
                     </div>
                 )
             }

@@ -1,0 +1,20 @@
+[33md88738c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m fix - src loading screen caused stretch while fetch failed and page number when no results
+[33m4cabce6[m home page series - updated
+[33md35529e[m movies loading screen
+[33m6929b32[m loading cards
+[33m2ae6d74[m fix: search and pageNo mixup
+[33m487a464[m movies pagination
+[33mc312f07[m src context
+[33m949c740[m home page loading screen
+[33m600b2be[m single movie page with loading spinner
+[33me6b2637[m search in homepage
+[33m50e43e2[m home page
+[33m2e20373[m rtk for get all series
+[33md895880[m rtk get all movies
+[33m1b84112[m error type ensurer and formatter
+[33m85e95dd[m rtk setup
+[33mba267e9[m responsive navbar
+[33mdef7951[m home page responsive series and movies card UI with poster
+[33m3275c04[m navbar UI
+[33m7e9fd33[m all routes initialization
+[33m8a6fe51[m initial commit
