@@ -41,15 +41,21 @@ const Movies = ({ type }: Props) => {
             pageNo: page.moviePageNo
         } as srcOptions;
 
-        const fetchMovies = async (options: srcOptions) => {
-            const res = await dispatch(getMovies(options))
-        }
+        const fetchMovies = (options: srcOptions) => {
+            dispatch(getMovies(options)).then((data) => {
+                const tr = data.payload as {
+                    data: IMovie[];
+                    totalResults: number;
+                }
+                setPage(prev => {
+                    return { ...prev, movieMaxPages: Math.ceil(tr.totalResults / 10) }
+                })
 
-        fetchMovies(options).then(() => {
-            //
-        }).catch(() => {
-            //
-        })
+            }).catch(() => {
+                //
+            })
+        }
+        void fetchMovies(options)
     }, [page.moviePageNo, dispatch])
 
     // #endregion : side-effects

@@ -34,15 +34,21 @@ const Series = (props: Props) => {
             pageNo: page.seriesPageNo
         } as srcOptions;
 
-        const fetchSeries = async (options: srcOptions) => {
-            const res = await dispatch(getSeries(options))
-        }
+        const fetchMovies = (options: srcOptions) => {
+            dispatch(getSeries(options)).then((data) => {
+                const tr = data.payload as {
+                    data: ISeries[];
+                    totalResults: number;
+                }
+                setPage(prev => {
+                    return { ...prev, seriesMaxPages: Math.ceil(tr.totalResults / 10) }
+                })
 
-        fetchSeries(options).then(() => {
-            //
-        }).catch(() => {
-            //
-        })
+            }).catch(() => {
+                //
+            })
+        }
+        void fetchMovies(options)
     }, [page.seriesPageNo, dispatch])
 
     // #endregion : side-effects
