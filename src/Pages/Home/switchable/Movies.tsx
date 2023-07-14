@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import "./movies.css"
 import MovieCard from '../../../components/cards/MovieCard'
-import "./movies.css"
 import { IMovie, getMovies } from '../../../redux/slices/movie/movie.er'
 import { selectAllMovies } from "../../../redux/slices/movie/movie.slice"
 import { TRootState, TStoreDispatch } from "../../../redux/store"
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import useSrcContext from "../../../customHooks/useSrcContext"
 import LoadingCards from "../../../components/cards/LoadingCards"
+import PageNotFoundImaage from "../../../assets/images/pageNotFound.jpg"
+import "./movies.css"
 
-type srcOptions = {
+export type srcOptions = {
     src: string,
     type: string,
     pageNo: number
@@ -39,7 +38,7 @@ const Movies = ({ type }: Props) => {
         const options = {
             src,
             type: "movie",
-            pageNo: page.pageNo
+            pageNo: page.moviePageNo
         } as srcOptions;
 
         const fetchMovies = async (options: srcOptions) => {
@@ -51,7 +50,7 @@ const Movies = ({ type }: Props) => {
         }).catch(() => {
             //
         })
-    }, [page, dispatch])
+    }, [page.moviePageNo, dispatch])
 
     // #endregion : side-effects
 
@@ -59,16 +58,16 @@ const Movies = ({ type }: Props) => {
     const handlePageChange = (action: string) => {
         switch (action) {
             case "+":
-                if (page.pageNo < page.maxPages) {
+                if (page.moviePageNo < page.movieMaxPages) {
                     setPage(prev => {
-                        return { ...prev, pageNo: prev.pageNo + 1 }
+                        return { ...prev, moviePageNo: prev.moviePageNo + 1 }
                     })
                 }
                 break;
             case "-":
-                if (page.pageNo > 1) {
+                if (page.moviePageNo > 1) {
                     setPage(prev => {
-                        return { ...prev, pageNo: prev.pageNo - 1 }
+                        return { ...prev, moviePageNo: prev.moviePageNo - 1 }
                     })
                 }
                 break;
@@ -86,22 +85,38 @@ const Movies = ({ type }: Props) => {
                     MOVIES
                 </span>
                 <div className='flex items-center gap-2'>
-                    <button className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer" onClick={() => handlePageChange("-")}>{`<<  Prev`}</button>
-                    <div>Page: {page.pageNo}</div>
-                    <button className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer" onClick={() => handlePageChange("+")}>{`Next  >>`}</button>
+                    <button
+                        className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400" onClick={() => handlePageChange("-")}
+                        disabled={(page.moviePageNo <= 1)}
+                    >{`<<  Prev`}</button>
+                    <div>Page: {page.moviePageNo}</div>
+                    <button
+                        className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400"
+                        onClick={() => handlePageChange("+")}
+                        disabled={(page.moviePageNo >= page.movieMaxPages)}
+                    >{`Next  >>`}</button>
                 </div>
             </div>
 
             {/* movies-list */}
-            <div id="movies-list" className='w-[95%] m-auto'>
+            <div className={`w-[95%] m-auto movies-list ${moviesState.isError ? `has-error` : ``}`}>
                 {
-                    moviesState.isFetching ? <>{Array(14).fill(0).map(() => <LoadingCards />)}</> : (<>
-                        {
-                            movies.map((movie: IMovie, index: number) => {
-                                return <MovieCard movie={movie} key={index} />
-                            })
-                        }
-                    </>)
+                    moviesState.isFetching ? <>{Array(14).fill(0).map((item, index) => <LoadingCards key={index} />)}</>
+                        :
+                        moviesState.isError ? (<>
+                            <div className=" flex flex-col gap-3 justify-center items-center">
+                                <div className="w-[200px] h-[200px]">
+                                    <img src={PageNotFoundImaage} alt="" className="w-full h-full object-cover overflow-clip" />
+                                </div>
+                                <p className="px-4 py-2 bg-red-100 text-red-600 border-red-600 rounded-sm">{moviesState.error}</p>
+                            </div>
+                        </>)
+                            :
+                            (<>{
+                                movies.map((movie: IMovie, index: number) => {
+                                    return <MovieCard movie={movie} key={index} />
+                                })
+                            }</>)
                 }
             </div>
         </div>

@@ -29,16 +29,16 @@ const movieSlice = createSlice({
         state.isFetching = true;
       })
       .addCase(getMovies.fulfilled, (state, action) => {
-        state.isFetching = false;
         state.movies = action.payload.data;
+        state.isFetching = false;
         state.totalResults = action.payload.totalResults;
         state.isError = false;
         state.error = "";
       })
-      .addCase(getMovies.rejected, (state) => {
+      .addCase(getMovies.rejected, (state, action) => {
         state.isFetching = false;
         state.isError = true;
-        state.error = "";
+        state.error = action.payload as string;
       });
   },
 });

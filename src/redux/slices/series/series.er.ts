@@ -3,30 +3,24 @@ import { ISeries } from "./series.slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import ensureError from "../../../utils/ensureError";
 import api, { TResponse } from "../../../config/api";
-
-interface ISeriesSuccessResponse {
-  Response: "True";
-  Search: Array<ISeries>;
-  totalResults: number;
-}
-
-interface ISeriesFailedResponse {
-  Response: "False";
-  Error: string;
-}
+import { IResponse, IResponseError } from "../movie/movie.er";
 
 export const getSeries = createAsyncThunk(
   "series/getSeries",
-  async (data: { src: string; type: string }, thunkApi) => {
+  async (data: { src: string; type: string; pageNo: number }, thunkApi) => {
     try {
-      const res: TResponse<ISeriesFailedResponse | ISeriesSuccessResponse> =
-        await api.get(`/?apiKey=${apiKey}&s=${data.src}&type=${data.type}`);
+      const res: TResponse<IResponse | IResponseError> = await api.get(
+        `/?apiKey=${apiKey}&s=${data.src}&type=${data.type}&page=${data.pageNo}`
+      );
 
       switch (res.data.Response) {
         case "True":
-          return thunkApi.fulfillWithValue(res.data.Search);
+          return thunkApi.fulfillWithValue({
+            data: res.data.Search,
+            totalResults: res.data.totalResults,
+          });
         case "False":
-          throw thunkApi.rejectWithValue(res.data.Error);
+          throw new Error(res.data.Error + ` Please try other words.`);
       }
     } catch (err: unknown) {
       const error = ensureError(err);

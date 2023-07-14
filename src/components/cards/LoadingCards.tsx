@@ -1,8 +1,6 @@
 import samplePoster from "../../assets/images/sample-poster.jpg"
 
-type Props = Record<string, never>
-
-const LoadingCards = (props: Props) => {
+const LoadingCards = () => {
     return (
         <div
             className='h-[300px] border-2 rounded-md overflow-clip shadow-lg cursor-pointer transition-all duration-300 bg-gray-200 animate-pulse'

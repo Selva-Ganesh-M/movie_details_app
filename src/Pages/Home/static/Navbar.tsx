@@ -52,12 +52,12 @@ const Navbar = (props: Props) => {
 
     // #region : search movies and series
 
-    useEffect(() => {
-        if (src === "" && ["/home", "/home/", "/home/movies/", "/home/series/"].includes(location.pathname.split("?")[0])) {
-            // void dispatch(getMovies({ src: "fight", type: "movie" }))
-            void dispatch(getSeries({ src: "fight", type: "series" }))
-        }
-    }, [dispatch, src, location])
+    // useEffect(() => {
+    //     if (src === "" && ["/home", "/home/", "/home/movies/", "/home/series/"].includes(location.pathname.split("?")[0])) {
+    //         // void dispatch(getMovies({ src: "fight", type: "movie" }))
+    //         void dispatch(getSeries({ src: "fight", type: "series", pageNo:  }))
+    //     }
+    // }, [dispatch, src, location])
 
     // #endregion : search movies and series
 
@@ -80,18 +80,20 @@ const Navbar = (props: Props) => {
     const handleSearch = () => {
         setPage((prev) => {
             return {
-                maxPages: 1,
-                pageNo: 1
+                moviePageNo: 1,
+                movieMaxPages: 1,
+                seriesMaxPages: 1,
+                seriesPageNo: 1
             }
         })
         dispatch(getMovies({ src, type: "movie", pageNo: 1 })).then((data) => {
             setPage((prev) => {
                 return { ...prev, maxPages: movieState.totalResults / 10 }
             })
-        }).catch(() => {
+        }).catch((err) => {
             //
         })
-        void dispatch(getSeries({ src, type: "series" }))
+        void dispatch(getSeries({ src, type: "series", pageNo: 1 }))
     }
 
     // #endregion : functions

@@ -12,16 +12,18 @@ export interface ISeries {
 
 interface ISeriesInitialState {
   series: Array<ISeries>;
+  totalResults: number;
+  isFetching: boolean;
   isError: boolean;
   error: string;
-  isFetching: boolean;
 }
 
 const initialState: ISeriesInitialState = {
   series: [],
+  totalResults: 0,
+  isFetching: false,
   isError: false,
   error: "",
-  isFetching: false,
 };
 
 const seriesSlice = createSlice({
@@ -34,9 +36,10 @@ const seriesSlice = createSlice({
         state.isFetching = true;
       })
       .addCase(getSeries.fulfilled, (state, action) => {
-        state.isError = false;
+        state.series = action.payload.data;
         state.isFetching = false;
-        state.series = action.payload;
+        state.totalResults = action.payload.totalResults;
+        state.isError = false;
         state.error = "";
       })
       .addCase(getSeries.rejected, (state, action) => {

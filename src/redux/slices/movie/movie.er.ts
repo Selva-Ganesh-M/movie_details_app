@@ -17,13 +17,13 @@ export interface IMovie {
   Poster: string;
 }
 
-interface IResponse {
+export interface IResponse {
   Search: Array<IMovie>;
   totalResults: number;
   Response: "True";
 }
 
-interface IResponseError {
+export interface IResponseError {
   Response: "False";
   Error: string;
 }
@@ -42,7 +42,7 @@ export const getMovies = createAsyncThunk(
             totalResults: res.data.totalResults,
           });
         case "False":
-          throw new Error(res.data.Error);
+          throw new Error(res.data.Error + ` Please try other words.`);
       }
     } catch (err: unknown) {
       const error = ensureError(err);

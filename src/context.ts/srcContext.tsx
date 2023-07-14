@@ -1,14 +1,18 @@
 import { useState } from "react"
 import React, { createContext } from "react";
 
+type TPage = {
+    moviePageNo: number,
+    seriesPageNo: number,
+    movieMaxPages: number
+    seriesMaxPages: number
+}
+
 type TContext = {
     src: string;
     setSrc: React.Dispatch<React.SetStateAction<string>> | (() => null),
-    page: {
-        pageNo: number,
-        maxPages: number
-    },
-    setPage: React.Dispatch<React.SetStateAction<{ pageNo: number, maxPages: number }>> | (() => null);
+    page: TPage,
+    setPage: React.Dispatch<React.SetStateAction<TPage>> | (() => null);
 }
 
 export const SrcContext = createContext<TContext>({
@@ -17,8 +21,10 @@ export const SrcContext = createContext<TContext>({
         //
     },
     page: {
-        pageNo: 1,
-        maxPages: 10
+        moviePageNo: 1,
+        seriesPageNo: 1,
+        movieMaxPages: 10,
+        seriesMaxPages: 10
     },
     setPage: () => null
 })
@@ -26,7 +32,12 @@ export const SrcContext = createContext<TContext>({
 
 const SrcContextProvider = (props: { children: React.ReactNode }) => {
     const [src, setSrc] = useState<string>("fight");
-    const [page, setPage] = useState<{ pageNo: number, maxPages: number }>({ pageNo: 1, maxPages: 10 });
+    const [page, setPage] = useState<TPage>({
+        moviePageNo: 1,
+        seriesPageNo: 1,
+        movieMaxPages: 10,
+        seriesMaxPages: 10
+    });
     return (
         <SrcContext.Provider value={{ src, setSrc, page, setPage }}>
             {props.children}
