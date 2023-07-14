@@ -1,5 +1,5 @@
 import BaseLayout from "./Pages/Home/BaseLayout";
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate, useLocation } from "react-router-dom"
 import Home from "./Pages/Home/switchable/Home";
 import Movies from "./Pages/Home/switchable/Movies";
 import Series from "./Pages/Home/switchable/Series";
@@ -12,6 +12,9 @@ import SingleLoadingPage from "./Pages/Loading/SingleLoadingPage";
 type Props = Record<string, never>;
 
 const App = (_props: Props) => {
+  const location = useLocation();
+  console.log(location.pathname);
+
   return (
     <div className="app">
       <Routes>
