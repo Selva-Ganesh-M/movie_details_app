@@ -28,7 +28,7 @@ const App = (props: Props) => {
           </Route>
         </Route>
         <Route path="/pageNotFound" element={<PageNotFound />} />
-        <Route path="/*" element={<Navigate to="/home" />} />
+        <Route path="/*" element={<Navigate to="/pageNotFound" />} />
       </Routes>
     </div>
   )
