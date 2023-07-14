@@ -89,7 +89,7 @@ const Movies = ({ type }: Props) => {
                         className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400" onClick={() => handlePageChange("-")}
                         disabled={(page.moviePageNo <= 1)}
                     >{`<<  Prev`}</button>
-                    <div>Page: {page.moviePageNo}</div>
+                    <div>Page: {moviesState.isError ? 0 : page.moviePageNo}</div>
                     <button
                         className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400"
                         onClick={() => handlePageChange("+")}
@@ -99,7 +99,7 @@ const Movies = ({ type }: Props) => {
             </div>
 
             {/* movies-list */}
-            <div className={`w-[95%] m-auto movies-list ${moviesState.isError ? `has-error` : ``}`}>
+            <div className={`w-[95%] m-auto movies-list ${moviesState.isError && !moviesState.isFetching ? `has-error` : ``}`}>
                 {
                     moviesState.isFetching ? <>{Array(14).fill(0).map((item, index) => <LoadingCards key={index} />)}</>
                         :

@@ -83,7 +83,7 @@ const Series = (props: Props) => {
                         onClick={() => handlePageChange("-")}
                         disabled={(page.seriesPageNo <= 1)}
                     >{`<<  Prev`}</button>
-                    <div>Page: {page.seriesPageNo}</div>
+                    <div>Page: {seriesState.isError ? 0 : page.seriesPageNo}</div>
                     <button
                         className="bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer disabled:bg-gray-400"
                         onClick={() => handlePageChange("+")}
@@ -93,7 +93,7 @@ const Series = (props: Props) => {
             </div>
 
             {/* series-list */}
-            <div className={`w-[95%] m-auto series-list ${seriesState.isError ? `has-error` : ``}`}>
+            <div className={`w-[95%] m-auto series-list ${seriesState.isError && !seriesState.isFetching ? `has-error` : ``}`}>
                 {
                     seriesState.isFetching ? <>{Array(14).fill(0).map((item, index) => <LoadingCards key={index} />)}</>
                         :
